@@ -1,3 +1,4 @@
+# coding=utf-8
 import cv2,numpy,time,random
 import os,sys,pyautogui, traceback
 from PIL import ImageGrab
@@ -27,11 +28,11 @@ def log(f):
 
 @log
 def select_mode():
-    print('''\n菜单：  鼠标移动到最右侧中止并返回菜单页面, 
-        1 结界自动合卡，自动选择前三张合成 
+    print('''\n菜单：  鼠标移动到最右侧中止并返回菜单页面,
+        1 结界自动合卡，自动选择前三张合成
         2 自动通关魂十，自动接受组队并确认通关
         3 自动通关业原火，单刷
-        4 自动刷组队狗粮（打手模式），          
+        4 自动刷组队狗粮（打手模式），
         5 单刷探索副本，无法区分经验BUFF
         ''')
     action.alarm(1)
@@ -46,10 +47,10 @@ def select_mode():
 #合成结界卡，较简单，未偏移直接点
 def card():
     while True:
-        #鼠标移到右侧中止    
+        #鼠标移到右侧中止
         if pyautogui.position()[0] >= pyautogui.size()[0] * 0.7:
             select_mode()
-            
+
         x, y, z = (370, 238), (384, 385), (391, 525)  #前三张卡的位置
         zz = (871, 615)               #合成按钮位置
         for i in [x, y, z ,zz]:
@@ -62,7 +63,7 @@ def card():
 #魂十通关
 def yuhun():
     while True :
-        #鼠标移到最右侧中止    
+        #鼠标移到最右侧中止
         if pyautogui.position()[0] >= pyautogui.size()[0] * 0.98:
             select_mode()
 
@@ -79,7 +80,7 @@ def yuhun():
         screen = screen[b:d,a:c]
 
         print('screen shot ok',time.ctime())
-        
+
         #设定目标，开始查找
         #这里是自动接受组队
         for i in ['jieshou2',"jieshou"]:
@@ -93,7 +94,7 @@ def yuhun():
                 print('接受组队')
                 xx = pts[0]
                 xx = action.cheat(xx, w, h)
-                if xx[0] > 120:           
+                if xx[0] > 120:
                     pyautogui.click(xx)
                     t = random.randint(40,80) / 100
                     time.sleep(t)
@@ -138,7 +139,7 @@ def yeyuanhuo():
         screen = screen[b:d,a:c]
 
         print('screen shot ok',time.ctime())
-        
+
         #设定目标，开始查找
 
         #过关
@@ -177,7 +178,7 @@ def goliang():
         screen = screen[b:d,a:c]
 
         print('screen shot ok',time.ctime())
-        
+
         #设定目标，开始查找
         #进入后
         want = imgs['guding']
@@ -188,7 +189,7 @@ def goliang():
         pts = action.locate(target,want,0)
         if not len(pts) == 0:
             print('正在地图中')
-            
+
             want = imgs['xiao']
             x1,x2 = (5, 405), (119, 560)
             target = action.cut(screen, x1, x2)
@@ -197,7 +198,7 @@ def goliang():
                 print('组队状态中')
             else:
                 print('退出重新组队')
-                
+
                 for i in ['queren', 'tuichu']:
                     want = imgs[i]
                     size = want[0].shape
@@ -228,7 +229,7 @@ def goliang():
             print('接受组队')
             xx = pts[0]
             xx = action.cheat(xx, w, h)
-            if xx[0] > 120:           
+            if xx[0] > 120:
                 pyautogui.click(xx)
                 t = random.randint(40,80) / 100
                 time.sleep(t)
@@ -258,8 +259,8 @@ def solo():
             select_mode()
 
         screen = ImageGrab.grab()
-        screen.save('screen.jpg')
-        screen = cv2.imread('screen.jpg')
+        screen.save('screen.png')
+        screen = cv2.imread('screen.png')
 
         #截屏，并裁剪以加速
         upleft = (0, 0)
@@ -271,7 +272,7 @@ def solo():
         screen = screen[b:d,a:c]
 
         print('screen shot ok',time.ctime())
-        
+
         #设定目标，开始查找
         #进入后
         want=imgs['guding']
@@ -282,7 +283,7 @@ def solo():
         pts = action.locate(target,want,0)
         if not len(pts) == 0:
             print('正在地图中')
-            
+
             want = imgs['left']
             target = screen
             pts = action.locate(target,want,0)
@@ -299,7 +300,7 @@ def solo():
             pts = action.locate(target,want,0)
             if not len(pts) == 0:
                 print('点击小怪')
-                xx = action.cheat(pts[0], 10, 10)        
+                xx = action.cheat(pts[0], 10, 10)
                 pyautogui.click(xx)
                 time.sleep(0.5)
                 continue

@@ -1,7 +1,6 @@
 
 import cv2,numpy,time,os, random
 from PIL import ImageGrab
-from winsound import Beep
 
  #在背景查找目标图片，并返回查找到的结果坐标列表，target是背景，want是要找目标
 def locate(target,want, show=0, msg=0):
@@ -26,13 +25,13 @@ def locate(target,want, show=0, msg=0):
 
         if msg:
             print(c_name,'we find it !!! ,at',x,y)
-            
+
         x,y=int(x),int(y)
         loc_pos.append([x,y])
 
     if show:  #在图上显示寻找的结果，调试时开启
         cv2.imshow('we get',target)
-        cv2.waitKey(0) 
+        cv2.waitKey(0)
         cv2.destroyAllWindows()
 
     if len(loc_pos)==0:
@@ -60,12 +59,12 @@ def alarm(n):
     frequency = 1500
     last = 500
 
-    for n in range(n):   
-        Beep(frequency,last)
+    for n in range(n):
+        print(frequency,last)
         time.sleep(0.05)
 
 #裁剪图片以缩小匹配范围，screen为原图内容，upleft、downright是目标区域的左上角、右下角坐标
-def cut(screen,upleft,downright): 
+def cut(screen,upleft,downright):
 
     a,b=upleft
     c,d=downright
